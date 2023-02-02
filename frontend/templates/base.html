@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block title %}We Love Books!{% endblock %}
+{% load static %}
+{% load static tailwind_tags %}
+{% block body %}
+
+  <nav class="flex justify-center pt-[7em] pb-[2em]">
+    <ul class="inline-flex items-center -space-x-px">
+      {% if page_obj.has_previous %}
+        <li>
+          <a href="?page={{page_obj.previous_page_number}}" class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">Previous</span>
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          </a>
+        </li>
+      {% endif %}
+      {% for page_numb in page_numbs %}
+        <li>
+          {% if page_numb == page_obj.number %}
+            <a href="#" aria-current="page" class="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_numb }}</a>
+          {% else %}
+            <a href="?page={{page_numb}}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_numb }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li>
+          <a href="?page={{page_obj.next_page_number}}" class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">Next</span>
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="grid px-[6em] py-[1em] gap-y-5 lg:grid-cols-2">
+    {% for book in page_obj %}
+      <div class="m-2 bg-white rounded-lg shadow-xl lg:flex lg:max-w-lg">
+        <img src="{{book.image.url}}" class="w-1/1 lg:w-1/2 rounded-l-2xl">
+        <div class="p-6 bg-gray-50">
+          <a href="{% url 'book_text' book.id %}" class="mb-2 text-2xl font-bold text-gray-900">{{book.title}}</a>
+          <p class="text-gray-600">{{book.author}}</p>
+          <div class="pt-4 pb-2">
+            {% for genre in book.genres.all %}
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{genre.name}}</span>
+            {% endfor %}
+          </div>
+          <a href="{% url 'book_text' book.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Читать
+            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
