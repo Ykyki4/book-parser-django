@@ -1,12 +1,17 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Q
 
 from .models import Book, Genre
 
 
 def index(request):
-    books = Book.objects.all()
+    search_content = request.GET.get('search')
+    if search_content:
+        books = Book.objects.filter(Q(title__contains=search_content) | Q(author__contains=search_content))
+    else:
+        books = Book.objects.all()
     paginator = Paginator(books, 8)
 
     page_number = request.GET.get('page')
