@@ -40,6 +40,7 @@ module.exports = {
          * and make sure the pattern below matches your project structure.
          */
         // '../../**/*.py'
+        './node_modules/flowbite/**/*.js'
     ],
     theme: {
         extend: {},
@@ -50,6 +51,7 @@ module.exports = {
          * for forms. If you don't like it or have own styling for forms,
          * comment the line below to disable '@tailwindcss/forms'.
          */
+        require('flowbite/plugin'),
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/line-clamp'),

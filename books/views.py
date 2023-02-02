@@ -7,7 +7,7 @@ from .models import Book, Genre
 
 
 def index(request):
-    search_content = request.GET.get('search')
+    search_content = request.GET.get('search', '')
     if search_content:
         books = Book.objects.filter(Q(title__contains=search_content) | Q(author__contains=search_content))
     else:
