@@ -16,7 +16,13 @@ def index(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'base.html', {'page_obj': page_obj, 'page_numbs': range(1, page_obj.paginator.num_pages+1)})
+    context = {
+        'page_obj': page_obj,
+        'page_numbs': range(1, page_obj.paginator.num_pages + 1),
+        'search_content': search_content,
+    }
+
+    return render(request, 'base.html', context=context)
 
 
 def book_text(request, id):
