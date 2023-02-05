@@ -18,7 +18,7 @@
               </li>
             {% else %}
               <li>
-                <a href="{% url 'genre' genre.id %}" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{genre.name}}</a>
+                <a href="{% url 'genre' genre.id %}?search={{search_content}}" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{genre.name}}</a>
               </li>
             {% endif %}
           {% endfor %}
@@ -73,7 +73,7 @@
           <p class="text-gray-600">{{book.author}}</p>
           <div class="pt-4 pb-2">
             {% for genre in book.genres.all %}
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{genre.name}}</span>
+              <a href="{% url 'genre' genre.id %}?search={{search_content}}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-300">{{genre.name}}</a>
             {% endfor %}
           </div>
           <a href="{% url 'book_text' book.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
