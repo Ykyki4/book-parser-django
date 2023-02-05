@@ -23,7 +23,8 @@ from books.views import index, book_text
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('genre/<int:genre_id>', index, name='genre'),
     path('__reload__/', include('django_browser_reload.urls')),
-    path('book/<int:id>', book_text, name='book_text')
+    path('book/<int:book_id>', book_text, name='book_text')
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
               +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
