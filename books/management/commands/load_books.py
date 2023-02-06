@@ -66,7 +66,7 @@ def parse_book(response, book_id):
         )
 
     book.text.save(
-        f'{book_id}.txt',
+        f'{title.strip()} - {author.strip()}.txt',
         File(txt_temp),
         save=False,
     )
