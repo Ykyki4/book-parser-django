@@ -5,6 +5,8 @@
  * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
  */
 
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
     content: [
         /**
@@ -44,6 +46,11 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        screens: {
+            'xs': '425px',
+            ...defaultTheme.screens,
+            // => @media (min-width: 360px) { ... }
+        },
     },
     plugins: [
         /**
